@@ -1,5 +1,5 @@
 import { Application } from 'modules/shared/ApplicationTypings'
-import { FeatureToggleInstanceFactory } from 'modules/shared/featureToggle/FeatureToggleInstanceFactory'
+import { FeatureToggleInstanceFactory } from './FeatureToggleInstanceFactory'
 import { LDClient } from 'ldclient-js'
 import { UserAccount } from 'modules/account/AccountService'
 
