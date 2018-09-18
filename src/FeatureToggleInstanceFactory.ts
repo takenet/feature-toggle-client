@@ -1,6 +1,6 @@
 import { initialize, LDUser, LDClient } from 'ldclient-js'
-import { UserAccount } from 'modules/account/AccountService'
-import { Application } from 'modules/shared/ApplicationTypings'
+import { UserAccount } from './types/UserAccount'
+import { Application } from './types/Application'
 import { ldclientSdkKey } from 'app.constants'
 
 export class FeatureToggleInstanceFactory {

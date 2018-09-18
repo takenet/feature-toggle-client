@@ -1,7 +1,7 @@
-import { Application } from 'modules/shared/ApplicationTypings'
+import { Application } from './types/Application'
 import { FeatureToggleInstanceFactory } from './FeatureToggleInstanceFactory'
 import { LDClient } from 'ldclient-js'
-import { UserAccount } from 'modules/account/AccountService'
+import { UserAccount } from './types/UserAccount'
 
 export class FeatureToggleClientService {
   private static instance: FeatureToggleClientService
