@@ -2,5 +2,21 @@
   "extends": [
     "tslint:latest",
     "tslint-config-prettier"
-  ]
+  ],
+  "rules": {
+    "no-any": false,
+    "member-ordering": [
+      true,
+      {
+          "order": [
+            "public-static-field",
+            "private-static-field",
+            "instance-field",
+            "constructor",
+            "public-static-method",
+            "private-static-method"
+          ]
+      }
+    ]
+  }
 }

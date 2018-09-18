@@ -15,7 +15,7 @@ class ClassFeatures {
   /**
    * Dashboard active messages generic feature example
    */
-  dashboardActiveMessageEnabled() {
+  public dashboardActiveMessageEnabled() {
     return FeatureToggleClientService.getInstance().isFeatureEnabled(
       DashboardActiveMessage
     )
@@ -24,7 +24,7 @@ class ClassFeatures {
   /**
    * Dashboard active message user feature example
    */
-  dashboardActiveMessageUserEnabled(): boolean {
+  public dashboardActiveMessageUserEnabled(): boolean {
     return FeatureToggleClientService.getInstance().isUserFeatureEnabled(
       DashboardActiveMessage
     )
@@ -33,7 +33,7 @@ class ClassFeatures {
   /**
    * Dashboard active message application feature example
    */
-  dashboardActiveMessageApplicationEnabled(): boolean {
+  public dashboardActiveMessageApplicationEnabled(): boolean {
     return FeatureToggleClientService.getInstance().isApplicationFeatureEnabled(
       DashboardActiveMessage
     )

@@ -1,14 +1,12 @@
-import { UserAccount } from 'modules/account/AccountService'
 import { Application } from 'modules/shared/ApplicationTypings'
 import { FeatureToggleInstanceFactory } from 'modules/shared/featureToggle/FeatureToggleInstanceFactory'
 import { LDClient } from 'ldclient-js'
+import { UserAccount } from 'modules/account/AccountService'
 
 export class FeatureToggleClientService {
   private static instance: FeatureToggleClientService
-
-  userInstance: LDClient
-  applicationInstance: LDClient
-  readyInstances: Array<LDClient> = []
+  private userInstance: LDClient
+  private applicationInstance: LDClient
 
   private constructor() {
     if (FeatureToggleClientService.instance) {
@@ -18,7 +16,7 @@ export class FeatureToggleClientService {
     }
   }
 
-  static getInstance(): FeatureToggleClientService {
+  public static getInstance(): FeatureToggleClientService {
     FeatureToggleClientService.instance =
       FeatureToggleClientService.instance || new FeatureToggleClientService()
     return FeatureToggleClientService.instance
@@ -28,7 +26,7 @@ export class FeatureToggleClientService {
    * Initialize user instance
    * @param payload user account
    */
-  initializeUser(payload: UserAccount): void {
+  public initializeUser(payload: UserAccount): void {
     this.userInstance = new FeatureToggleInstanceFactory(payload).getClient()
   }
 
@@ -36,7 +34,7 @@ export class FeatureToggleClientService {
    * Initialize application (bot) instance
    * @param payload application (bot)
    */
-  initializeApplication(payload: Application): void {
+  public initializeApplication(payload: Application): void {
     this.applicationInstance = new FeatureToggleInstanceFactory(
       payload
     ).getClient()
@@ -47,7 +45,7 @@ export class FeatureToggleClientService {
    * @param featureKey feature key configured on server
    * @param defaultValue
    */
-  async isFeatureEnabled(featureKey: string, defaultValue: boolean = false) {
+  public async isFeatureEnabled(featureKey: string, defaultValue: boolean = false) {
     try {
       const [
         userInstanceReadyPromise,
@@ -59,7 +57,7 @@ export class FeatureToggleClientService {
 
       return applicationInstanceReadyPromise || userInstanceReadyPromise
     } catch (e) {
-      console.error(e)
+      throw e;
     }
   }
 
@@ -68,7 +66,7 @@ export class FeatureToggleClientService {
    * @param featureKey feature key configured on server
    * @param defaultValue
    */
-  isUserFeatureEnabled(
+  public isUserFeatureEnabled(
     featureKey: string,
     defaultValue: boolean = false
   ): Promise<{}> {
@@ -89,7 +87,7 @@ export class FeatureToggleClientService {
    * @param featureKey feature key configured on server
    * @param defaultValue
    */
-  isApplicationFeatureEnabled(
+  public isApplicationFeatureEnabled(
     featureKey: string,
     defaultValue: boolean = false
   ): Promise<{}> {

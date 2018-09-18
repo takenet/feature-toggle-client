@@ -19,37 +19,37 @@ export class FeatureToggleInstanceFactory {
 
   /**
    * Return instance user by payload type
-   * @param payload - user or application
+   * @param userPayload - user or application
    */
-  private userPayloadByType(payload): LDUser {
-    const applicationJson = payload =>
+  private userPayloadByType(userPayload: any): LDUser {
+    const applicationJson = (payload: any) =>
       payload.hasCluster
         ? {
+            custom: {
+              group: 'bot'
+            },
+            email: `${payload.shortName}@msging.net`,
             key: payload.shortName,
             name: payload.name,
-            email: `${payload.shortName}@msging.net`,
-            custom: {
-              group: 'bot'
-            }
           }
         : {
-            key: 'free',
-            name: 'free',
-            email: 'free@free.com',
             custom: {
               group: 'bot'
-            }
+            },
+            email: 'free@free.com',
+            key: 'free',
+            name: 'free',
           }
 
-    return payload.email
+    return userPayload.email
       ? {
-          key: payload.email,
-          name: payload.fullName,
-          email: payload.email,
           custom: {
             group: 'users'
-          }
+          },
+          email: userPayload.email,
+          key: userPayload.email,
+          name: userPayload.fullName,
         }
-      : applicationJson(payload)
+      : applicationJson(userPayload)
   }
 }
