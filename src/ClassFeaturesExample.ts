@@ -1,4 +1,4 @@
-import { FeatureToggleClientService } from 'modules/shared/featureToggle/FeatureToggleClientService'
+import { FeatureToggleClientService } from './FeatureToggleClientService'
 
 /**
  * This is a class example that has all feautures functions to be used in controller and view.
@@ -24,7 +24,7 @@ class ClassFeatures {
   /**
    * Dashboard active message user feature example
    */
-  public dashboardActiveMessageUserEnabled(): boolean {
+  public dashboardActiveMessageUserEnabled(): Promise<{}> {
     return FeatureToggleClientService.getInstance().isUserFeatureEnabled(
       DashboardActiveMessage
     )
@@ -33,7 +33,7 @@ class ClassFeatures {
   /**
    * Dashboard active message application feature example
    */
-  public dashboardActiveMessageApplicationEnabled(): boolean {
+  public dashboardActiveMessageApplicationEnabled(): Promise<{}> {
     return FeatureToggleClientService.getInstance().isApplicationFeatureEnabled(
       DashboardActiveMessage
     )
