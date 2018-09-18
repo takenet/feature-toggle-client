@@ -5,6 +5,7 @@
   ],
   "rules": {
     "no-any": false,
+    "ordered-imports": false,
     "member-ordering": [
       true,
       {

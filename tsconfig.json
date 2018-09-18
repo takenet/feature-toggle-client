@@ -7,7 +7,6 @@
       "esnext"
     ],
     "target": "es2015",
-    "strict": true,
     "outDir": "./lib",
     "preserveConstEnums": true,
     "removeComments": true,
