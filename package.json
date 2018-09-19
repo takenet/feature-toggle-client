@@ -5,9 +5,9 @@
   "license": "MIT",
   "repository": "",
   "author": {
-    "name": "",
-    "email": "",
-    "url": ""
+    "name": "Samuel Martins",
+    "email": "samuels@take.net",
+    "url": "https://blip.ai"
   },
   "keywords": [
     ""
@@ -15,8 +15,8 @@
   "files": [
     "lib"
   ],
-  "main": "lib/index.js",
-  "typings": "lib/index.d.ts",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "scripts": {
     "clean": "rimraf lib && rimraf coverage",
     "format": "prettier --write \"{src,__tests__}/**/*.ts\" --single-quote es5",
@@ -27,7 +27,7 @@
     "test": "jest",
     "coverage": "jest --coverage",
     "watch": "npm run build -- --watch",
-    "watch:test": "jest --watch"
+    "watch:test": "jest --watch --coverage"
   },
   "dependencies": {
     "ldclient-js": "^2.6.0"
@@ -61,6 +61,6 @@
       "ts",
       "js"
     ],
-    "testEnvironment": "node"
+    "testURL": "http://localhost/"
   }
 }
