@@ -12,4 +12,8 @@ export class UserAccount {
   public position?: string;
   public expiration?: string;
   public city?: string;
+
+  constructor(init?: Partial<UserAccount>) {
+    Object.assign(this, init);
+  }
 }

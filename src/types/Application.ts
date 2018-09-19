@@ -12,6 +12,10 @@ export class Application {
   public isTemplate: boolean;
   public status: string;
   public applicationJson: IApplicationJson;
+
+  constructor(init?: Partial<Application>) {
+    Object.assign(this, init);
+  }
 }
 
 interface IApplicationJson {
