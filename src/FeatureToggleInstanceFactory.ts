@@ -1,12 +1,11 @@
 import { initialize, LDUser, LDClient } from 'ldclient-js'
 import { UserAccount } from './types/UserAccount'
 import { Application } from './types/Application'
-import { ldclientSdkKey } from 'app.constants'
 
 export class FeatureToggleInstanceFactory {
   private client: LDClient
 
-  constructor(payload: UserAccount | Application) {
+  constructor(payload: UserAccount | Application, ldclientSdkKey: string) {
     this.client = initialize(ldclientSdkKey, this.userPayloadByType(payload))
   }
 

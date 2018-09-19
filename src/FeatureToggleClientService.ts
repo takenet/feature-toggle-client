@@ -26,17 +26,18 @@ export class FeatureToggleClientService {
    * Initialize user instance
    * @param payload user account
    */
-  public initializeUser(payload: UserAccount): void {
-    this.userInstance = new FeatureToggleInstanceFactory(payload).getClient()
+  public initializeUser(payload: UserAccount, ldclientSdkKey: string): void {
+    this.userInstance = new FeatureToggleInstanceFactory(payload, ldclientSdkKey).getClient()
   }
 
   /**
    * Initialize application (bot) instance
    * @param payload application (bot)
    */
-  public initializeApplication(payload: Application): void {
+  public initializeApplication(payload: Application, ldclientSdkKey: string): void {
     this.applicationInstance = new FeatureToggleInstanceFactory(
-      payload
+      payload,
+      ldclientSdkKey
     ).getClient()
   }
 
