@@ -18,6 +18,7 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
+    "commit": "./node_modules/.bin/git-cz",
     "clean": "rimraf lib && rimraf coverage",
     "format": "prettier --write \"{src,__tests__}/**/*.ts\" --single-quote es5",
     "lint": "tslint --force --format verbose \"src/**/*.ts\"",
@@ -27,7 +28,8 @@
     "test": "jest",
     "coverage": "jest --coverage",
     "watch": "npm run build -- --watch",
-    "watch:test": "jest --watch --coverage"
+    "watch:test": "jest --watch --coverage",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "dependencies": {
     "ldclient-js": "^2.6.0"
@@ -35,10 +37,12 @@
   "devDependencies": {
     "@types/jest": "^22.0.1",
     "@types/node": "^8.0.0",
+    "commitizen": "^2.10.1",
     "coveralls": "^3.0.2",
     "jest": "^22.0.4",
     "prettier": "^1.5.2",
     "rimraf": "^2.0.0",
+    "semantic-release": "^15.9.15",
     "ts-jest": "^22.0.1",
     "ts-node": "^3.2.0",
     "tslint": "^5.0.0",
