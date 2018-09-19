@@ -27,14 +27,20 @@ export class FeatureToggleClientService {
    * @param payload user account
    */
   public initializeUser(payload: UserAccount, ldclientSdkKey: string): void {
-    this.userInstance = new FeatureToggleInstanceFactory(payload, ldclientSdkKey).getClient()
+    this.userInstance = new FeatureToggleInstanceFactory(
+      payload,
+      ldclientSdkKey
+    ).getClient()
   }
 
   /**
    * Initialize application (bot) instance
    * @param payload application (bot)
    */
-  public initializeApplication(payload: Application, ldclientSdkKey: string): void {
+  public initializeApplication(
+    payload: Application,
+    ldclientSdkKey: string
+  ): void {
     this.applicationInstance = new FeatureToggleInstanceFactory(
       payload,
       ldclientSdkKey
@@ -46,7 +52,10 @@ export class FeatureToggleClientService {
    * @param featureKey feature key configured on server
    * @param defaultValue
    */
-  public async isFeatureEnabled(featureKey: string, defaultValue: boolean = false) {
+  public async isFeatureEnabled(
+    featureKey: string,
+    defaultValue: boolean = false
+  ) {
     try {
       const [
         userInstanceReadyPromise,
@@ -58,7 +67,7 @@ export class FeatureToggleClientService {
 
       return applicationInstanceReadyPromise || userInstanceReadyPromise
     } catch (e) {
-      throw e;
+      throw e
     }
   }
 
