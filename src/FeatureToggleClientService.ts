@@ -1,25 +1,25 @@
-import { Application } from './types/Application'
-import { FeatureToggleInstanceFactory } from './FeatureToggleInstanceFactory'
-import { LDClient } from 'ldclient-js'
-import { UserAccount } from './types/UserAccount'
+import { Application } from './types/Application';
+import { FeatureToggleInstanceFactory } from './FeatureToggleInstanceFactory';
+import { LDClient } from 'ldclient-js';
+import { UserAccount } from './types/UserAccount';
 
 export class FeatureToggleClientService {
-  private static instance: FeatureToggleClientService
-  private userInstance: LDClient
-  private applicationInstance: LDClient
+  private static instance: FeatureToggleClientService;
+  private userInstance: LDClient;
+  private applicationInstance: LDClient;
 
   private constructor() {
     if (FeatureToggleClientService.instance) {
       throw new Error(
         'FeatureToggleClientService is a singleton. Use getInstance() method instead of constructor'
-      )
+      );
     }
   }
 
   public static getInstance(): FeatureToggleClientService {
     FeatureToggleClientService.instance =
-      FeatureToggleClientService.instance || new FeatureToggleClientService()
-    return FeatureToggleClientService.instance
+      FeatureToggleClientService.instance || new FeatureToggleClientService();
+    return FeatureToggleClientService.instance;
   }
 
   /**
@@ -30,7 +30,7 @@ export class FeatureToggleClientService {
     this.userInstance = new FeatureToggleInstanceFactory(
       payload,
       ldclientSdkKey
-    ).getClient()
+    ).getClient();
   }
 
   /**
@@ -44,7 +44,7 @@ export class FeatureToggleClientService {
     this.applicationInstance = new FeatureToggleInstanceFactory(
       payload,
       ldclientSdkKey
-    ).getClient()
+    ).getClient();
   }
 
   /**
@@ -59,15 +59,15 @@ export class FeatureToggleClientService {
     try {
       const [
         userInstanceReadyPromise,
-        applicationInstanceReadyPromise
+        applicationInstanceReadyPromise,
       ] = await Promise.all([
         this.isUserFeatureEnabled(featureKey, defaultValue),
-        this.isApplicationFeatureEnabled(featureKey, defaultValue)
-      ])
+        this.isApplicationFeatureEnabled(featureKey, defaultValue),
+      ]);
 
-      return applicationInstanceReadyPromise || userInstanceReadyPromise
+      return applicationInstanceReadyPromise || userInstanceReadyPromise;
     } catch (e) {
-      throw e
+      throw e;
     }
   }
 
@@ -82,14 +82,14 @@ export class FeatureToggleClientService {
   ): Promise<{}> {
     const withUserFeaturePromise = new Promise(async (resolve, reject) => {
       try {
-        await this.userInstance.waitUntilReady()
-        resolve(this.userInstance.variation(featureKey, defaultValue))
+        await this.userInstance.waitUntilReady();
+        resolve(this.userInstance.variation(featureKey, defaultValue));
       } catch (e) {
-        reject(`Error while initializing LDClient (user instance): ${e}`)
+        reject(`Error while initializing LDClient (user instance): ${e}`);
       }
-    })
+    });
 
-    return withUserFeaturePromise
+    return withUserFeaturePromise;
   }
 
   /**
@@ -104,16 +104,16 @@ export class FeatureToggleClientService {
     const withApplicationFeaturePromise = new Promise(
       async (resolve, reject) => {
         try {
-          await this.applicationInstance.waitUntilReady()
-          resolve(this.applicationInstance.variation(featureKey, defaultValue))
+          await this.applicationInstance.waitUntilReady();
+          resolve(this.applicationInstance.variation(featureKey, defaultValue));
         } catch (e) {
           reject(
             `Error while initializing LDClient (application instance): ${e}`
-          )
+          );
         }
       }
-    )
+    );
 
-    return withApplicationFeaturePromise
+    return withApplicationFeaturePromise;
   }
 }

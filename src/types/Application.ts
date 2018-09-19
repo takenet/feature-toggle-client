@@ -42,11 +42,11 @@ interface IApplicationJson {
   registerTunnelReceivers: boolean;
   settings: IApplicationSettings;
   settingsType: string;
-};
+}
 
 interface IApplicationSettings {
   flow: any;
-};
+}
 
 interface IMessageReceiver {
   mediaType?: any;
@@ -63,25 +63,25 @@ interface IMessageReceiver {
   forwardTo?: any;
   settings?: any;
   settingsType?: any;
-};
+}
 
 interface IApplicationDomainActivation {
   domain: IDomain;
   isActive: boolean;
   properties: IProperties;
-};
+}
 
 interface IProperties {
   pageAccessToken: string;
   pageId: string;
-};
+}
 
 interface IDomain {
   shortName: string;
   fqdn: string;
-};
+}
 
 interface IApplicationUserPermissionModel {
   permissionClaim: number;
   permissionAction: number;
-};
+}

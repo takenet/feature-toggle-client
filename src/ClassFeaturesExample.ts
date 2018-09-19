@@ -1,4 +1,4 @@
-import { FeatureToggleClientService } from './FeatureToggleClientService'
+import { FeatureToggleClientService } from './FeatureToggleClientService';
 
 /**
  * This is a class example that has all feautures functions to be used in controller and view.
@@ -10,7 +10,7 @@ import { FeatureToggleClientService } from './FeatureToggleClientService'
  * - Application features must ends with "ApplicationEnabled" prefix
  */
 
-export const DashboardActiveMessage = 'dashboard-active-message'
+export const DashboardActiveMessage = 'dashboard-active-message';
 class ClassFeatures {
   /**
    * Dashboard active messages generic feature example
@@ -18,7 +18,7 @@ class ClassFeatures {
   public dashboardActiveMessageEnabled() {
     return FeatureToggleClientService.getInstance().isFeatureEnabled(
       DashboardActiveMessage
-    )
+    );
   }
 
   /**
@@ -27,7 +27,7 @@ class ClassFeatures {
   public dashboardActiveMessageUserEnabled(): Promise<{}> {
     return FeatureToggleClientService.getInstance().isUserFeatureEnabled(
       DashboardActiveMessage
-    )
+    );
   }
 
   /**
@@ -36,6 +36,6 @@ class ClassFeatures {
   public dashboardActiveMessageApplicationEnabled(): Promise<{}> {
     return FeatureToggleClientService.getInstance().isApplicationFeatureEnabled(
       DashboardActiveMessage
-    )
+    );
   }
 }

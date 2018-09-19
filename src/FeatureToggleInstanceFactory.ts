@@ -1,19 +1,19 @@
-import { initialize, LDUser, LDClient } from 'ldclient-js'
-import { UserAccount } from './types/UserAccount'
-import { Application } from './types/Application'
+import { initialize, LDUser, LDClient } from 'ldclient-js';
+import { UserAccount } from './types/UserAccount';
+import { Application } from './types/Application';
 
 export class FeatureToggleInstanceFactory {
-  private client: LDClient
+  private client: LDClient;
 
   constructor(payload: UserAccount | Application, ldclientSdkKey: string) {
-    this.client = initialize(ldclientSdkKey, this.userPayloadByType(payload))
+    this.client = initialize(ldclientSdkKey, this.userPayloadByType(payload));
   }
 
   /**
    * Return client instance
    */
   public getClient() {
-    return this.client
+    return this.client;
   }
 
   /**
@@ -25,7 +25,7 @@ export class FeatureToggleInstanceFactory {
       payload.hasCluster
         ? {
             custom: {
-              group: 'bot'
+              group: 'bot',
             },
             email: `${payload.shortName}@msging.net`,
             key: payload.shortName,
@@ -33,22 +33,22 @@ export class FeatureToggleInstanceFactory {
           }
         : {
             custom: {
-              group: 'bot'
+              group: 'bot',
             },
             email: 'free@free.com',
             key: 'free',
             name: 'free',
-          }
+          };
 
     return userPayload.email
       ? {
           custom: {
-            group: 'users'
+            group: 'users',
           },
           email: userPayload.email,
           key: userPayload.email,
           name: userPayload.fullName,
         }
-      : applicationJson(userPayload)
+      : applicationJson(userPayload);
   }
 }
