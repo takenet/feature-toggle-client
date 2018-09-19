@@ -16,6 +16,23 @@ export class FeatureToggleClientService {
     }
   }
 
+  /**
+   * Returns private userInstance
+   */
+  public getUserInstance(): LDClient {
+    return this.userInstance;
+  }
+
+  /**
+   * Returns private application instance
+   */
+  public getApplicationInstance(): LDClient {
+    return this.applicationInstance;
+  }
+
+  /**
+   * Returns a singleton instance
+   */
   public static getInstance(): FeatureToggleClientService {
     FeatureToggleClientService.instance =
       FeatureToggleClientService.instance || new FeatureToggleClientService();
