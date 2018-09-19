@@ -1,1 +1,3 @@
-export * from './greeter';
+export {
+  FeatureToggleClientService as default,
+} from './FeatureToggleClientService';
