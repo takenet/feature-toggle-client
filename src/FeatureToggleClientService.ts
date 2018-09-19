@@ -59,10 +59,10 @@ export class FeatureToggleClientService {
     try {
       const [
         userInstanceReadyPromise,
-        applicationInstanceReadyPromise,
+        applicationInstanceReadyPromise
       ] = await Promise.all([
         this.isUserFeatureEnabled(featureKey, defaultValue),
-        this.isApplicationFeatureEnabled(featureKey, defaultValue),
+        this.isApplicationFeatureEnabled(featureKey, defaultValue)
       ]);
 
       return applicationInstanceReadyPromise || userInstanceReadyPromise;
