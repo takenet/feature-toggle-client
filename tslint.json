@@ -6,6 +6,7 @@
   "rules": {
     "no-any": false,
     "ordered-imports": false,
+    "semicolon": [true, "always"],
     "member-ordering": [
       true,
       {
