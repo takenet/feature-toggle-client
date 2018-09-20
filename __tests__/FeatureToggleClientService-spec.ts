@@ -35,6 +35,51 @@ describe('Clients', () => {
     instance.initializeApplication(application, exampleHmgKey);
     expect(instance.getApplicationInstance()).toBeTruthy();
   });
+});
 
+describe('Feature', () => {
+  test('Should check for a application feature', async () => {
+    const instance = FeatureToggleClientService.getInstance();
+    const application = new Application({
+      name: 'Application name',
+      shortName: 'applicationShortName',
+      template: 'builder'
+    });
+
+    instance.initializeApplication(application, exampleHmgKey);
+    const isApplicationFeatureEnabled = await instance.isApplicationFeatureEnabled('feature-test');
+    expect(isApplicationFeatureEnabled).toBeDefined();
+  });
+
+  test('Should check for a user feature', async () => {
+    const instance = FeatureToggleClientService.getInstance();
+    const user = new UserAccount({
+      email: 'samuels@take.net',
+      fullName: 'Samuel Martins',
+    });
+
+    instance.initializeUser(user, exampleHmgKey);
+    const isUserFeatureEnabled = await instance.isUserFeatureEnabled('feature-test');
+    expect(isUserFeatureEnabled).toBeDefined();
+  });
+
+  test('Should check for user or application instance feature', async () => {
+    const instance = FeatureToggleClientService.getInstance();
+    const application = new Application({
+      name: 'Application name',
+      shortName: 'applicationShortName',
+      template: 'builder'
+    });
+    instance.initializeApplication(application, exampleHmgKey);
+
+    const user = new UserAccount({
+      email: 'samuels@take.net',
+      fullName: 'Samuel Martins',
+    });
+    instance.initializeUser(user, exampleHmgKey);
+
+    const isFeatureEnabled = await instance.isApplicationFeatureEnabled('feature-test');
+    expect(isFeatureEnabled).toBeDefined();
+  });
 });
 
