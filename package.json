@@ -65,7 +65,10 @@
   "release": {
     "analyzeCommits": {
       "releaseRules": [
-        { "type": "build", "release": "patch" }
+        {
+          "type": "build",
+          "release": "patch"
+        }
       ]
     }
   },

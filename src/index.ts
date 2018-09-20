@@ -1,3 +1,1 @@
-export {
-  FeatureToggleClientService as default,
-} from './FeatureToggleClientService';
+export { FeatureToggleClientService } from './FeatureToggleClientService';
