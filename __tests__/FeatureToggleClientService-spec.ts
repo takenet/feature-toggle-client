@@ -1,16 +1,17 @@
 import { FeatureToggleClientService } from '../src/FeatureToggleClientService';
 import { UserAccount } from '../src/types/UserAccount';
 import { Application } from '../src/types/Application';
-import fs from 'fs';
+import * as mock from 'mock-fs'; //tslint:disable-line
+import * as  fs from 'fs';
 
 let exampleHmgKey;
 let secret;
 
-if(fs.existsSync('./secret.ts')) {
-  secret = require('./secret'); //tslint:disable-line
+if(fs.existsSync('secret.ts')) {
+  secret = require('../secret.ts'); //tslint:disable-line
 }
 
-exampleHmgKey = secret.secrectKey || process.env.LAUNCH_DARKLY_KEY;
+exampleHmgKey = secret ? secret.secrectKey : process.env.LAUNCH_DARKLY_KEY;
 
 test('Should get a FeatureToggleClientService instance', () => {
   const instance = FeatureToggleClientService.getInstance();

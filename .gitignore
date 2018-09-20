@@ -6,4 +6,4 @@ yarn-error.log*
 .nyc_output
 dist
 lib_test
-__tests__/secret.ts
+secret.ts
