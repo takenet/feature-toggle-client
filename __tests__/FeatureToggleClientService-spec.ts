@@ -4,11 +4,13 @@ import { Application } from '../src/types/Application';
 import fs from 'fs';
 
 let exampleHmgKey;
+let secret;
 
 if(fs.existsSync('./secret.ts')) {
-  const secret = require('./secret'); //tslint:disable-line
-  exampleHmgKey = secret.secrectKey || process.env.LAUNCH_DARKLY_KEY;
+  secret = require('./secret'); //tslint:disable-line
 }
+
+exampleHmgKey = secret.secrectKey || process.env.LAUNCH_DARKLY_KEY;
 
 test('Should get a FeatureToggleClientService instance', () => {
   const instance = FeatureToggleClientService.getInstance();
