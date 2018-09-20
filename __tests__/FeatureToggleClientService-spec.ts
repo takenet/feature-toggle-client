@@ -1,7 +1,9 @@
 import { FeatureToggleClientService } from '../src/FeatureToggleClientService';
 import { UserAccount } from '../src/types/UserAccount';
 import { Application } from '../src/types/Application';
-const exampleHmgKey = '5b90099a64e7b415536ce16e';
+
+import * as secret from './secret'; // Key used locally
+const exampleHmgKey = secret.secrectKey || process.env.LAUNCH_DARKLY_KEY;
 
 test('Should get a FeatureToggleClientService instance', () => {
   const instance = FeatureToggleClientService.getInstance();
