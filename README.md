@@ -55,4 +55,12 @@ const check = async () => {
 }
 ```
 
+## Running tests
+
+Create file `secret.ts` following this pattern
+
+```typescript
+export const secrectKey = 'YOUR-LAUNCH-DARKLY-KEY';
+```
+
 That's all!
