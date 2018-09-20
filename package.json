@@ -27,6 +27,7 @@
     "build": "tsc --pretty",
     "test": "jest",
     "coverage": "jest --coverage --coverageReporters=text-lcov | coveralls",
+    "coverage-local": "jest --coverage",
     "watch": "npm run build -- --watch",
     "watch:test": "jest --watch --coverage",
     "semantic-release": "semantic-release --prepare && npm publish && semantic-release post"

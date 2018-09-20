@@ -64,7 +64,7 @@ describe('Feature', () => {
   test('Should check for a user feature', async () => {
     const instance = FeatureToggleClientService.getInstance();
     const user = new UserAccount({
-      email: 'samuels@take.net',
+      email: 'user@email.com',
       fullName: 'Samuel Martins',
     });
 
@@ -83,12 +83,12 @@ describe('Feature', () => {
     instance.initializeApplication(application, exampleHmgKey);
 
     const user = new UserAccount({
-      email: 'samuels@take.net',
+      email: 'user@email.com',
       fullName: 'Samuel Martins',
     });
     instance.initializeUser(user, exampleHmgKey);
 
-    const isFeatureEnabled = await instance.isApplicationFeatureEnabled('feature-test');
+    const isFeatureEnabled = await instance.isFeatureEnabled('feature-test');
     expect(isFeatureEnabled).toBeDefined();
   });
 });
