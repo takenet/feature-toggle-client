@@ -35,23 +35,31 @@ const init = () => {
 }
 ```
 
-Check for feature value
+While checking for feature value, we recommend use of an interface `IToggleable` that implements `checkFeatures` method. This make class more clearly about it implementation.
 
 ```typescript
-import { FeatureToggleClientService } from 'feature-toggle-client'
+import {
+  FeatureToggleClientService,
+  IToggleable,
+} from 'feature-toggle-client'
 
-const check = async () => {
-  //Checking for user
-  const isUserFeatureEnabled =
-    await FeatureToggleClientService
-      .getInstance()
-      .isUserFeatureEnabled('feature-key')
+class Foo implements IToggleable {
+  /**
+   * Check for features
+   **/
+  async checkFeatures() {
+    //Checking for user
+    this.isUserFeatureEnabled =
+      await FeatureToggleClientService
+        .getInstance()
+        .isUserFeatureEnabled('feature-key')
 
-  //Checking for application
-  const isApplicationFeatureEnabled =
-    await FeatureToggleClientService
-      .getInstance()
-      .isApplicationFeatureEnabled('feature-key')
+    //Checking for application
+    this.isApplicationFeatureEnabled =
+      await FeatureToggleClientService
+        .getInstance()
+        .isApplicationFeatureEnabled('feature-key')
+  }
 }
 ```
 
