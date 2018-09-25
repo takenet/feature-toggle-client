@@ -47,7 +47,7 @@ class Foo implements IToggleable {
   /**
    * Check for features
    **/
-  async checkFeatures() {
+  public async checkFeatures(): Promise<any> {
     //Checking for user
     this.isUserFeatureEnabled =
       await FeatureToggleClientService

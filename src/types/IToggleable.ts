@@ -1,3 +1,3 @@
 export interface IToggleable {
-  checkFeatures(): void;
+  checkFeatures(): Promise<any>;
 }
