@@ -23,15 +23,15 @@ const init = () => {
   FeatureToggleClientService
     .initializeUser({
       fullName: 'My incredible name',
-      email: 'user@email.com', // LauchDarkly key
-    })
+      email: 'user@email.com', // LauchDarkly user key
+    }, 'YOUR-LAUNCH-DARKLY-KEY')
 
   // Initialize user application
   FeatureToggleClientService
     .initializeApplication({
-      shortName: 'applicationShortName', // LauchDarkly key
+      shortName: 'applicationShortName', // LauchDarkly user key
       name: 'Application name',
-    })
+    }, 'YOUR-LAUNCH-DARKLY-KEY')
 }
 ```
 
