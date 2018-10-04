@@ -35,13 +35,36 @@ const init = () => {
 }
 ```
 
-While checking for feature value, we recommend use of an interface `IToggleable` that implements `checkFeatures` method. This make class more clearly about it implementation.
+While checking for feature value, we recommend decouple a toggling decision point from the logic. ([ref](https://martinfowler.com/articles/feature-toggles.html)). So, we create a class that directly call our client and expose a method like so:
 
 ```typescript
-import {
-  FeatureToggleClientService,
-  IToggleable,
-} from 'feature-toggle-client'
+const myFeatureFlagKey = 'feature-flag-key';
+export class MyFeaturesDecisions {
+  /**
+   * Checking for application
+   **/
+  public static someFeatureApplicationEnabled(): Promise<any> {
+    return FeatureToggleClientService
+      .getInstance()
+      .isApplicationFeatureEnabled(myFeatureFlagKey)
+  }
+
+  /**
+   * Checking for user
+   **/
+  public static someFeatureUserEnabled(): Promise<any> {
+    return FeatureToggleClientService
+      .getInstance()
+      .isUserFeatureEnabled(myFeatureFlagKey)
+  }
+}
+```
+
+So, in your controller, we recommend use of an interface `IToggleable` that implements `checkFeatures` method. This make class more clearly about it implementation.
+
+```typescript
+import { IToggleable } from 'feature-toggle-client'
+import { MyFeaturesDecisions } from './MyFeaturesDecisions'
 
 class Foo implements IToggleable {
   /**
@@ -49,16 +72,10 @@ class Foo implements IToggleable {
    **/
   public async checkFeatures(): Promise<any> {
     //Checking for user
-    this.isUserFeatureEnabled =
-      await FeatureToggleClientService
-        .getInstance()
-        .isUserFeatureEnabled('feature-key')
+    this.isUserFeatureEnabled = await MyFeaturesDecisions.someFeatureUserEnabled()
 
     //Checking for application
-    this.isApplicationFeatureEnabled =
-      await FeatureToggleClientService
-        .getInstance()
-        .isApplicationFeatureEnabled('feature-key')
+    this.isApplicationFeatureEnabled = await MyFeaturesDecisions.someFeatureApplicationEnabled()
   }
 }
 ```
