@@ -1,6 +1,6 @@
 import { Application } from './types/Application';
 import { FeatureToggleInstanceFactory } from './FeatureToggleInstanceFactory';
-import { LDClient } from 'ldclient-js';
+import { LDClient, LDOptions } from 'ldclient-js';
 import { UserAccount } from './types/UserAccount';
 
 export class FeatureToggleClientService {
@@ -43,10 +43,15 @@ export class FeatureToggleClientService {
    * Initialize user instance
    * @param payload user account
    */
-  public initializeUser(payload: UserAccount, ldclientSdkKey: string): void {
+  public initializeUser(
+    payload: UserAccount,
+    ldclientSdkKey: string,
+    options?: LDOptions
+  ): void {
     this.userInstance = new FeatureToggleInstanceFactory(
       payload,
-      ldclientSdkKey
+      ldclientSdkKey,
+      options,
     ).getClient();
   }
 
@@ -56,11 +61,13 @@ export class FeatureToggleClientService {
    */
   public initializeApplication(
     payload: Application,
-    ldclientSdkKey: string
+    ldclientSdkKey: string,
+    options?: LDOptions,
   ): void {
     this.applicationInstance = new FeatureToggleInstanceFactory(
       payload,
-      ldclientSdkKey
+      ldclientSdkKey,
+      options,
     ).getClient();
   }
 
