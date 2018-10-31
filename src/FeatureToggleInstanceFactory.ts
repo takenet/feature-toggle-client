@@ -1,12 +1,32 @@
 import { initialize, LDUser, LDClient, LDOptions } from 'ldclient-js';
 import { UserAccount } from './types/UserAccount';
 import { Application } from './types/Application';
+import * as uuid from 'uuid';
+
+const applicationByCluster = (p: any) =>
+  p.hasCluster
+    ? {
+        custom: {
+          group: 'bot',
+        },
+        email: `${p.shortName}@msging.net`,
+        key: p.shortName,
+        name: p.name,
+      }
+    : {
+        custom: {
+          group: 'bot',
+        },
+        email: 'free@free.com',
+        key: 'free',
+        name: 'free',
+      };
 
 export class FeatureToggleInstanceFactory {
   private client: LDClient;
 
   constructor(payload: UserAccount | Application, ldclientSdkKey: string, options?: LDOptions) {
-    this.client = initialize(ldclientSdkKey, this.userPayloadByType(payload), options);
+    this.client = initialize(ldclientSdkKey, this.payloadByType(payload), options);
   }
 
   /**
@@ -18,37 +38,29 @@ export class FeatureToggleInstanceFactory {
 
   /**
    * Return instance user by payload type
-   * @param userPayload - user or application
+   * @param payload - user or application
    */
-  private userPayloadByType(userPayload: any): LDUser {
-    const applicationJson = (payload: any) =>
-      payload.hasCluster
-        ? {
-            custom: {
-              group: 'bot',
-            },
-            email: `${payload.shortName}@msging.net`,
-            key: payload.shortName,
-            name: payload.name,
-          }
-        : {
-            custom: {
-              group: 'bot',
-            },
-            email: 'free@free.com',
-            key: 'free',
-            name: 'free',
-          };
+  private payloadByType(payload: any): LDUser {
+    const isUser = () => payload.email;
 
-    return userPayload.email
-      ? {
+    if (isUser()) {
+      if (payload.anonymous) {
+        return {
+          anonymous: true,
+          key: uuid.v4(),
+        };
+      } else {
+        return {
           custom: {
             group: 'users',
           },
-          email: userPayload.email,
-          key: userPayload.email,
-          name: userPayload.fullName,
-        }
-      : applicationJson(userPayload);
+          email: payload.email,
+          key: payload.email,
+          name: payload.fullName,
+        };
+      }
+    }
+
+    return applicationByCluster(payload);
   }
 }
