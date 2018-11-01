@@ -106,8 +106,10 @@ export class FeatureToggleClientService {
   ): Promise<{}> {
     const withUserFeaturePromise = new Promise(async (resolve, reject) => {
       try {
-        await this.userInstance.waitUntilReady();
-        resolve(this.userInstance.variation(featureKey, defaultValue));
+        if (this.userInstance) {
+          await this.userInstance.waitUntilReady();
+          resolve(this.userInstance.variation(featureKey, defaultValue));
+        }
       } catch (e) {
         reject(`Error while initializing LDClient (user instance): ${e}`);
       }
@@ -128,8 +130,10 @@ export class FeatureToggleClientService {
     const withApplicationFeaturePromise = new Promise(
       async (resolve, reject) => {
         try {
-          await this.applicationInstance.waitUntilReady();
-          resolve(this.applicationInstance.variation(featureKey, defaultValue));
+          if (this.applicationInstance) {
+            await this.applicationInstance.waitUntilReady();
+            resolve(this.applicationInstance.variation(featureKey, defaultValue));
+          }
         } catch (e) {
           reject(
             `Error while initializing LDClient (application instance): ${e}`
