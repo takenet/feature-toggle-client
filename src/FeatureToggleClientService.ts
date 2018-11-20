@@ -109,6 +109,8 @@ export class FeatureToggleClientService {
         if (this.userInstance) {
           await this.userInstance.waitUntilReady();
           resolve(this.userInstance.variation(featureKey, defaultValue));
+        } else {
+          resolve(undefined);
         }
       } catch (e) {
         reject(`Error while initializing LDClient (user instance): ${e}`);
@@ -133,6 +135,8 @@ export class FeatureToggleClientService {
           if (this.applicationInstance) {
             await this.applicationInstance.waitUntilReady();
             resolve(this.applicationInstance.variation(featureKey, defaultValue));
+          } else {
+            resolve(undefined);
           }
         } catch (e) {
           reject(
