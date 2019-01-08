@@ -57,6 +57,15 @@ export class MyFeaturesDecisions {
       .getInstance()
       .isUserFeatureEnabled(myFeatureFlagKey)
   }
+
+  /**
+   * Checking for user or application
+   **/
+  public static someFeatureEnabled(): Promise<any> {
+    return FeatureToggleClientService
+      .getInstance()
+      .isFeatureEnabled(myFeatureFlagKey)
+  }
 }
 ```
 
