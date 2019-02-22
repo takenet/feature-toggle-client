@@ -48,6 +48,7 @@ export class FeatureToggleInstanceFactory {
         return {
           anonymous: true,
           key: uuid.v4(),
+          ...payload,
         };
       } else {
         return {

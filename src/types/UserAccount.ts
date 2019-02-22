@@ -13,6 +13,7 @@ export class UserAccount {
   public expiration?: string;
   public city?: string;
   public anonymous?: boolean;
+  public ip?: string;
 
   constructor(init?: Partial<UserAccount>) {
     Object.assign(this, init);
