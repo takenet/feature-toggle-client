@@ -103,7 +103,7 @@ export class FeatureToggleClientService {
   public isUserFeatureEnabled(
     featureKey: string,
     defaultValue: boolean = false
-  ): Promise<{}> {
+  ): Promise<any> {
     const withUserFeaturePromise = new Promise(async (resolve, reject) => {
       try {
         if (this.userInstance) {
@@ -128,7 +128,7 @@ export class FeatureToggleClientService {
   public isApplicationFeatureEnabled(
     featureKey: string,
     defaultValue: boolean = false
-  ): Promise<{}> {
+  ): Promise<any> {
     const withApplicationFeaturePromise = new Promise(
       async (resolve, reject) => {
         try {
