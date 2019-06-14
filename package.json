@@ -33,7 +33,7 @@
     "semantic-release": "semantic-release --prepare && npm publish && semantic-release post"
   },
   "dependencies": {
-    "ldclient-js": "^2.7.0",
+    "ldclient-js": "^2.10.2",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
