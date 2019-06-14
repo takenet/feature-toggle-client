@@ -107,7 +107,7 @@ export class FeatureToggleClientService {
     const withUserFeaturePromise = new Promise(async (resolve, reject) => {
       try {
         if (this.userInstance) {
-          await this.userInstance.waitUntilReady();
+          await this.userInstance.waitForInitialization();
           resolve(this.userInstance.variation(featureKey, defaultValue));
         } else {
           resolve(undefined);
@@ -133,7 +133,7 @@ export class FeatureToggleClientService {
       async (resolve, reject) => {
         try {
           if (this.applicationInstance) {
-            await this.applicationInstance.waitUntilReady();
+            await this.applicationInstance.waitForInitialization();
             resolve(this.applicationInstance.variation(featureKey, defaultValue));
           } else {
             resolve(undefined);
