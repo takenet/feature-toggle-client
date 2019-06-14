@@ -1,4 +1,4 @@
-import { initialize, LDUser, LDClient, LDOptions } from 'ldclient-js';
+import { initialize, LDUser, LDClient, LDOptions } from 'launchdarkly-js-client-sdk';
 import { UserAccount } from './types/UserAccount';
 import { Application } from './types/Application';
 import * as uuid from 'uuid';

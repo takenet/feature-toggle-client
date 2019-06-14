@@ -1,6 +1,6 @@
 import { Application } from './types/Application';
 import { FeatureToggleInstanceFactory } from './FeatureToggleInstanceFactory';
-import { LDClient, LDOptions } from 'ldclient-js';
+import { LDClient, LDOptions } from 'launchdarkly-js-client-sdk';
 import { UserAccount } from './types/UserAccount';
 
 export class FeatureToggleClientService {
