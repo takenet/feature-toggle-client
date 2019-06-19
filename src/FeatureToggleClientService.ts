@@ -113,7 +113,7 @@ export class FeatureToggleClientService {
           resolve(undefined);
         }
       } catch (e) {
-        reject(`Error while initializing LDClient (user instance): ${e}`);
+        reject(defaultValue);
       }
     });
 
@@ -139,9 +139,7 @@ export class FeatureToggleClientService {
             resolve(undefined);
           }
         } catch (e) {
-          reject(
-            `Error while initializing LDClient (application instance): ${e}`
-          );
+          reject(defaultValue);
         }
       }
     );

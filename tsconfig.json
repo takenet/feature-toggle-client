@@ -16,7 +16,7 @@
     ]
   },
   "include": [
-    "src/**/*"
+    "src/**/*", "__tests__/secret.ts"
   ],
   "exclude": [
     "node_modules",
