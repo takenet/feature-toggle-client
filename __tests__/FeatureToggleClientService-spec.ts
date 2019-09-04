@@ -91,5 +91,17 @@ describe('Feature', () => {
     const isFeatureEnabled = await instance.isFeatureEnabled('feature-test');
     expect(isFeatureEnabled).toBeDefined();
   });
+
+  test('Should return default value if default timeout has exceeded', async () => {
+    const instance = FeatureToggleClientService.getInstance();
+    const defaultValue = false;
+    const fakePromise = new Promise(resolve => {
+      setTimeout(() => resolve(true), 6000);
+    });
+
+    instance.setRequestTimeouts(2000);
+    const resolvedValue = await (instance as any).solveRequestWithTimeout(fakePromise, defaultValue);
+    expect(resolvedValue).toBeFalsy();
+  });
 });
 
