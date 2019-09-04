@@ -28,11 +28,11 @@ module.exports = {
   ],
 
   scopes: [
-    { name: 'components' },
+    { name: 'client' },
     { name: 'utils' },
     { name: 'docs' },
-    { name: 'theme' },
-    { name: 'configs' }
+    { name: 'configs' },
+    { name: 'build' }
   ],
 
   allowCustomScopes: true,
