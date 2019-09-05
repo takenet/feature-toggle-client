@@ -99,7 +99,14 @@ describe('Feature', () => {
       setTimeout(() => resolve(true), 6000);
     });
 
+    const user = new UserAccount({
+      email: 'user@email.com',
+      fullName: 'Samuel Martins',
+    });
+
+    instance.initializeUser(user, exampleHmgKey);
     instance.setRequestTimeouts(2000);
+
     const resolvedValue = await (instance as any).solveRequestWithTimeout(fakePromise, defaultValue);
     expect(resolvedValue).toBeFalsy();
   });
