@@ -3,10 +3,13 @@ import { FeatureToggleInstanceFactory } from './FeatureToggleInstanceFactory';
 import { LDClient, LDOptions } from 'launchdarkly-js-client-sdk';
 import { UserAccount } from './types/UserAccount';
 
+const DEFAULT_REQUEST_TIMEOUT = 5000;
+
 export class FeatureToggleClientService {
   private static instance: FeatureToggleClientService;
   private userInstance: LDClient;
   private applicationInstance: LDClient;
+  private requestTimeout: number = DEFAULT_REQUEST_TIMEOUT;
 
   private constructor() {
     if (FeatureToggleClientService.instance) {
@@ -31,6 +34,13 @@ export class FeatureToggleClientService {
   }
 
   /**
+   * Set request timeouts
+   */
+  public setRequestTimeouts(timeout: number): void {
+    this.requestTimeout = timeout;
+  }
+
+  /**
    * Returns a singleton instance
    */
   public static getInstance(): FeatureToggleClientService {
@@ -48,6 +58,7 @@ export class FeatureToggleClientService {
     ldclientSdkKey: string,
     options?: LDOptions
   ): void {
+
     this.userInstance = new FeatureToggleInstanceFactory(
       payload,
       ldclientSdkKey,
@@ -62,13 +73,23 @@ export class FeatureToggleClientService {
   public initializeApplication(
     payload: Application,
     ldclientSdkKey: string,
-    options?: LDOptions,
+    options?: LDOptions
   ): void {
     this.applicationInstance = new FeatureToggleInstanceFactory(
       payload,
       ldclientSdkKey,
       options,
     ).getClient();
+  }
+
+  /**
+   * Solve feature request with configured timeouts
+   * @param requestPromise Feature request promise
+   */
+  private solveRequestWithTimeout(requestPromise: Promise<any>, defaultValue: boolean): Promise<any> {
+    return Promise.race([requestPromise, new Promise(resolve => {
+      setTimeout(() => resolve(defaultValue), this.requestTimeout);
+    })]);
   }
 
   /**
@@ -84,10 +105,10 @@ export class FeatureToggleClientService {
       const [
         userInstanceReadyPromise,
         applicationInstanceReadyPromise
-      ] = await Promise.all([
+      ] = await this.solveRequestWithTimeout(Promise.all([
         this.isUserFeatureEnabled(featureKey, defaultValue),
         this.isApplicationFeatureEnabled(featureKey, defaultValue)
-      ]);
+      ]), defaultValue);
 
       return applicationInstanceReadyPromise || userInstanceReadyPromise;
     } catch (e) {
