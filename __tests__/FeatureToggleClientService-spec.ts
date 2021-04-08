@@ -1,9 +1,6 @@
-/**
- * @jest-environment node
- */
 
 import { FeatureToggleClientService } from '../src/FeatureToggleClientService';
-import { FeatureToggleService } from '../src/FeatureToggleService';
+
 import { UserAccount } from '../src/types/UserAccount';
 import { Application } from '../src/types/Application';
 import * as mock from 'mock-fs'; //tslint:disable-line
@@ -116,19 +113,5 @@ describe('Feature', () => {
 
     const resolvedValue = await (instance as any).solveRequestWithTimeout(fakePromise, defaultValue);
     expect(resolvedValue).toBeFalsy();
-  });
-});
-
-describe('API', () => {
-  test('Should insert a user to a feature toggle', async () => {
-    const user = new UserAccount({
-      email: 'mateus.almeida+1@take.net',
-      fullName: 'Mateus Almeida',
-    });
-    const instance = FeatureToggleService.getInstance();
-
-    instance.initializeService( { projectKey: 'default', environmentKey: 'dev', authorizationToken: authorizationToken } );
-    const success = await instance.addUserToFeatureToggle(user, 'action-with-condition');
-    expect(success).toBeTruthy();
   });
 });
