@@ -1,10 +1,16 @@
+/**
+ * @jest-environment node
+ */
+
 import { FeatureToggleClientService } from '../src/FeatureToggleClientService';
+import { FeatureToggleService } from '../src/FeatureToggleService';
 import { UserAccount } from '../src/types/UserAccount';
 import { Application } from '../src/types/Application';
 import * as mock from 'mock-fs'; //tslint:disable-line
 import * as  fs from 'fs';
 
 let exampleHmgKey;
+let authorizationToken;
 let secret;
 
 if(fs.existsSync('secret.ts')) {
@@ -12,6 +18,7 @@ if(fs.existsSync('secret.ts')) {
 }
 
 exampleHmgKey = secret ? secret.secrectKey : process.env.LAUNCH_DARKLY_KEY;
+authorizationToken = secret ? secret.apiAuthorizationToken : process.env.LAUNCH_DARKLY_API_AUTHORIZATION_TOKEN;
 
 test('Should get a FeatureToggleClientService instance', () => {
   const instance = FeatureToggleClientService.getInstance();
@@ -112,3 +119,16 @@ describe('Feature', () => {
   });
 });
 
+describe('API', () => {
+  test('Should insert a user to a feature toggle', async () => {
+    const user = new UserAccount({
+      email: 'mateus.almeida+1@take.net',
+      fullName: 'Mateus Almeida',
+    });
+    const instance = FeatureToggleService.getInstance();
+
+    instance.initializeService( { projectKey: 'default', environmentKey: 'dev', authorizationToken: authorizationToken } );
+    const success = await instance.addUserToFeatureToggle(user, 'action-with-condition');
+    expect(success).toBeTruthy();
+  });
+});
