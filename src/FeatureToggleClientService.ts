@@ -2,6 +2,8 @@ import { Application } from './types/Application';
 import { FeatureToggleInstanceFactory } from './FeatureToggleInstanceFactory';
 import { LDClient, LDOptions } from 'launchdarkly-js-client-sdk';
 import { UserAccount } from './types/UserAccount';
+import { FeatureToggleApiService } from './FeatureToggleApiService';
+import { IFeatureToggleServiceSettings } from './types/IFeatureToggleServiceSettings';
 
 const DEFAULT_REQUEST_TIMEOUT = 5000;
 
@@ -9,6 +11,7 @@ export class FeatureToggleClientService {
   private static instance: FeatureToggleClientService;
   private userInstance: LDClient;
   private applicationInstance: LDClient;
+  private apiServiceInstance: FeatureToggleApiService
   private requestTimeout: number = DEFAULT_REQUEST_TIMEOUT;
 
   private constructor() {
@@ -80,6 +83,16 @@ export class FeatureToggleClientService {
       ldclientSdkKey,
       options,
     ).getClient();
+  }
+
+  /**
+   * Initialize user instance
+   * @param settings feature toggle api authorization and environment keys
+   */
+   public initializeApiService(
+    settings: IFeatureToggleServiceSettings
+  ): void {
+    this.apiServiceInstance = new FeatureToggleApiService(settings);
   }
 
   /**
@@ -166,5 +179,17 @@ export class FeatureToggleClientService {
     );
 
     return withApplicationFeaturePromise;
+  }
+
+  /**
+   * Add an user to a feature toggle
+   * @param user user account
+   * @param featureKey feature key configured on server
+   */
+  public async addUserToFeatureToggle(
+    user: UserAccount,
+    featureKey: string
+  ): Promise<boolean> {
+    return await this.apiServiceInstance.addUserToFeatureToggle(user, featureKey);
   }
 }

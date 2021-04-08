@@ -3,21 +3,16 @@ import { IFeatureToggleServiceSettings } from './types/IFeatureToggleServiceSett
 
 const axios = require('axios').default;
 
-export class FeatureToggleService {
+export class FeatureToggleApiService {
 
   private readonly API_URL = 'https://app.launchdarkly.com/api/v2/flags';
   private readonly DEFAULT_COMMENT = 'modified by feature-toggle-client';
   private readonly ADD_USER_TARGETS = 'addUserTargets';
   private readonly STATUS_CODE_OK = 200;
-  private static instance: FeatureToggleService;
   private settings: IFeatureToggleServiceSettings;
 
-  private constructor() {
-    if (FeatureToggleService.instance) {
-      throw new Error(
-        'FeatureToggleService is a singleton. Use getInstance() method instead of constructor'
-      );
-    }
+  constructor(settings: IFeatureToggleServiceSettings) {
+    this.settings = settings;
   }
 
   private getApiRequestUrl(
@@ -47,25 +42,6 @@ export class FeatureToggleService {
       ]
     }
     return data;
-  }
-
-  /**
-   * Returns a singleton instance
-   */
-   public static getInstance(): FeatureToggleService {
-    FeatureToggleService.instance =
-      FeatureToggleService.instance || new FeatureToggleService();
-    return FeatureToggleService.instance;
-  }
-
-  /**
-   * Initialize api service
-   * @param settings feature toggle api authorization and environment keys
-   */
-  public initializeService(
-    settings: IFeatureToggleServiceSettings
-  ): void {
-    this.settings = settings;
   }
 
   /**
