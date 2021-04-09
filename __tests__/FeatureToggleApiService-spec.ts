@@ -18,8 +18,8 @@ authorizationToken = secret ? secret.apiAuthorizationToken : process.env.LAUNCH_
 describe('API', () => {
   test('Should insert a user to a feature toggle', async () => {
     const user = new UserAccount({
-      email: 'mateus.almeida+1@take.net',
-      fullName: 'Mateus Almeida',
+      email: 'gabrielv@take.net',
+      fullName: 'Gabriel Estavaringo',
     });
     const instance = FeatureToggleClientService.getInstance();
 
