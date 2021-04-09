@@ -1,5 +1,7 @@
+import { AddUserRequest } from './types/AddUserRequest';
 import { UserAccount } from './types/UserAccount';
 import { IFeatureToggleServiceSettings } from './types/IFeatureToggleServiceSettings';
+import { Instruction } from './types/Instruction';
 
 const axios = require('axios').default;
 
@@ -32,18 +34,20 @@ export class FeatureToggleApiService {
   }
 
   private getAddUserTargetsDataFormat(user: UserAccount, variationId: string) {
-    const data = {
+    const instructions = [];
+    instructions.push(new Instruction({
+      kind: this.ADD_USER_TARGETS,
+      variationId: variationId,
+      values: [user.email]
+    }));
+
+    const addUserRequest = new AddUserRequest({
       comment: this.DEFAULT_COMMENT,
       environmentKey: this.settings.environmentKey,
-      instructions: [
-        {
-          kind: this.ADD_USER_TARGETS,
-          variationId: variationId,
-          values: [user.email]
-        }
-      ]
-    };
-    return data;
+      instructions: instructions
+    });
+
+    return addUserRequest;
   }
 
   private async getVariationId(featureKey: string): Promise<string> {
@@ -57,7 +61,7 @@ export class FeatureToggleApiService {
       });
       return variation._id;
     }
-    throw "Error getting variation id";
+    throw 'Error getting variation id';
   }
 
   /**
@@ -82,7 +86,7 @@ export class FeatureToggleApiService {
 
       return response.status == this.STATUS_CODE_OK;
     } catch (error) {
-      //console.error(error);
+      console.error(error);
       return false;
     }
   }
