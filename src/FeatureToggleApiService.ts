@@ -33,12 +33,12 @@ export class FeatureToggleApiService {
     };
   }
 
-  private getAddUserTargetsDataFormat(user: UserAccount, variationId: string) {
+  private getAddUserTargetsDataFormat(users: UserAccount[], variationId: string) {
     const instructions = [];
     instructions.push(new Instruction({
       kind: this.ADD_USER_TARGETS,
       variationId: variationId,
-      values: [user.email]
+      values: users.map(user => user.email)
     }));
 
     const addUserRequest = new AddUserRequest({
@@ -69,14 +69,14 @@ export class FeatureToggleApiService {
    * @param user user account
    * @param featureKey feature key configured on server
    */
-  public async addUserToFeatureToggle(
-    user: UserAccount,
+  public async addUsersToFeatureToggle(
+    users: UserAccount[],
     featureKey: string
   ): Promise<boolean> {
     try {
       const variationId = await this.getVariationId(featureKey);
 
-      const data = this.getAddUserTargetsDataFormat(user, variationId);
+      const data = this.getAddUserTargetsDataFormat(users, variationId);
 
       const url = this.getApiRequestUrl(featureKey, true);
 

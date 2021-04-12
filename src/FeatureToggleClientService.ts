@@ -190,6 +190,18 @@ export class FeatureToggleClientService {
     user: UserAccount,
     featureKey: string
   ): Promise<boolean> {
-    return await this.apiServiceInstance.addUserToFeatureToggle(user, featureKey);
+    return await this.apiServiceInstance.addUsersToFeatureToggle([user], featureKey);
+  }
+
+  /**
+   * Add users to a feature toggle
+   * @param users user account set
+   * @param featureKey feature key configured on server
+   */
+  public async addUsersToFeatureToggle(
+    users: UserAccount[],
+    featureKey: string
+  ): Promise<boolean> {
+    return await this.apiServiceInstance.addUsersToFeatureToggle(users, featureKey);
   }
 }
