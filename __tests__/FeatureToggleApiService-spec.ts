@@ -17,14 +17,20 @@ authorizationToken = secret ? secret.apiAuthorizationToken : process.env.LAUNCH_
 
 describe('API', () => {
   test('Should insert a user to a feature toggle', async () => {
-    const user = new UserAccount({
-      email: 'gabrielv@take.net',
-      fullName: 'Gabriel Estavaringo',
-    });
     const instance = FeatureToggleClientService.getInstance();
 
     instance.initializeApiService( { projectKey: 'default', environmentKey: 'dev', authorizationToken: authorizationToken } );
-    const success = await instance.addUserToFeatureToggle(user, 'action-with-condition');
+    const success = await instance.addUserToFeatureToggle( { email: 'user@email.com' } , 'action-with-condition');
+    expect(success).toBeTruthy();
+  });
+
+  test('Should insert users to a feature toggle', async () => {
+    const instance = FeatureToggleClientService.getInstance();
+
+    instance.initializeApiService( { projectKey: 'default', environmentKey: 'dev', authorizationToken: authorizationToken } );
+    const success = await instance.addUsersToFeatureToggle(
+      [{ email: 'user1@email.com' } , { email: 'user2@email.com' } ] ,
+       'action-with-condition');
     expect(success).toBeTruthy();
   });
 });

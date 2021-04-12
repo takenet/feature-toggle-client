@@ -13,7 +13,8 @@ First, install client
 npm i -S feature-toggle-client
 ```
 
-Initialize user or application with an payload and LauchDarkly key
+Initialize user or application with a payload and LauchDarkly key.
+You also can intialize the Launch Darkly API with an Authorization Token, Project Key and Environment Key.
 
 ```typescript
 import { FeatureToggleClientService } from 'feature-toggle-client'
@@ -32,6 +33,14 @@ const init = () => {
       shortName: 'applicationShortName', // LauchDarkly user key
       name: 'Application name',
     }, 'YOUR-LAUNCH-DARKLY-KEY')
+
+  // Initialize api service
+  FeatureToggleClientService
+    .initializeApiService({ 
+      projectKey: 'project key', // LaunchDarkly project key, found in: AccountSettings-Projects 
+      environmentKey: 'environment key', // LaunchDarkly environment key (production, test), found in: AccountSettings-Projects 
+      authorizationToken: 'YOUR-LAUNCH-DARKLY-API-AUTHORIZATION-TOKEN'
+    });
 }
 ```
 
@@ -89,12 +98,40 @@ class Foo implements IToggleable {
 }
 ```
 
+You can add a user to a feature toggle like the code:
+
+```typescript
+const myFeatureFlagKey = 'feature-flag-key';
+export class MyFeaturesDecisions {
+  /**
+   * Adding user to a feature toggle
+   **/
+  public static addUserToSomeFeature(): Promise<bool> { // true if user was added successfully
+    return FeatureToggleClientService
+      .getInstance()
+      .addUserToFeatureToggle({ email: 'user@mail.com' }, myFeatureFlagKey)
+  }
+
+  /**
+   * Adding users to a feature toggle
+   **/
+  public static addUserToSomeFeature(): Promise<bool> { // true if user was added successfully
+    return FeatureToggleClientService
+      .getInstance()
+      .addUserToFeatureToggle(
+        [{ email: 'user1@mail.com' }, { email: 'user2@mail.com' }],
+        myFeatureFlagKey)
+  }
+}
+```
+
 ## Running tests
 
 Create file `secret.ts` following this pattern
 
 ```typescript
 export const secrectKey = 'YOUR-LAUNCH-DARKLY-KEY';
+export const apiAuthorizationToken = 'YOUR-LAUNCH-DARKLY-API-AUTHORIZATION-TOKEN';
 ```
 
 That's all!
