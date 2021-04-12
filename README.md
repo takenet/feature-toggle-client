@@ -131,7 +131,7 @@ Create file `secret.ts` following this pattern
 
 ```typescript
 export const secrectKey = 'YOUR-LAUNCH-DARKLY-KEY';
-export const apiAuthorizationToken = 'YOUR-LAUNCH-DARKLY-API-AUTHORIZATION-TOKEN';
+export const apiAuthorizationToken = 'YOUR-LAUNCH-DARKLY-API-AUTHORIZATION-TOKEN'; //found in: AccountSettings-Authorization
 ```
 
 That's all!

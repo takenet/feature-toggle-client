@@ -29,7 +29,7 @@ describe('API', () => {
 
     instance.initializeApiService( { projectKey: 'default', environmentKey: 'dev', authorizationToken: authorizationToken } );
     const success = await instance.addUsersToFeatureToggle(
-      [{ email: 'user1@email.com' } , { email: 'user2@email.com' } ] ,
+      [{ email: 'user1@email.com' } , { email: 'user2@email.com' }] ,
        'action-with-condition');
     expect(success).toBeTruthy();
   });
