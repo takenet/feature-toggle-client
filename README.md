@@ -38,7 +38,7 @@ const init = () => {
   FeatureToggleClientService
     .initializeApiService({ 
       projectKey: 'project key', // LaunchDarkly project key, found in: AccountSettings-Projects 
-      environmentKey: 'environment key', // LaunchDarkly environment key (production, test), found in: AccountSettings-Projects 
+      environmentKey: 'environment key', // LaunchDarkly environment key, found in: AccountSettings-Projects 
       authorizationToken: 'YOUR-LAUNCH-DARKLY-API-AUTHORIZATION-TOKEN'
     });
 }
