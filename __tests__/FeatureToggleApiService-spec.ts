@@ -15,6 +15,13 @@ if(fs.existsSync('secret.ts')) {
 authorizationToken = secret ? secret.apiAuthorizationToken : process.env.LAUNCH_DARKLY_API_AUTHORIZATION_TOKEN;
 
 describe('API', () => {
+  test('Should initialize API Service', async () => {
+    const instance = FeatureToggleClientService.getInstance();
+
+    instance.initializeApiService( { projectKey: 'default', environmentKey: 'dev', authorizationToken: authorizationToken } );
+    expect(instance.getApiServiceInstance()).toBeTruthy();
+  });
+
   xtest('Should insert a user to a feature toggle', async () => {
     const instance = FeatureToggleClientService.getInstance();
 

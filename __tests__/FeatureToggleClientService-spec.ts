@@ -96,7 +96,7 @@ describe('Feature', () => {
     expect(isFeatureEnabled).toBeDefined();
   });
 
-  xtest('Should return default value if default timeout has exceeded', async () => {
+  test('Should return default value if default timeout has exceeded', async () => {
     const instance = FeatureToggleClientService.getInstance();
     const defaultValue = false;
     const fakePromise = new Promise(resolve => {

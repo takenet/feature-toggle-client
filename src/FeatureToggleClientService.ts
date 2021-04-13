@@ -37,6 +37,13 @@ export class FeatureToggleClientService {
   }
 
   /**
+   * Returns private application instance
+   */
+   public getApiServiceInstance(): FeatureToggleApiService {
+    return this.apiServiceInstance;
+  }
+
+  /**
    * Set request timeouts
    */
   public setRequestTimeouts(timeout: number): void {
