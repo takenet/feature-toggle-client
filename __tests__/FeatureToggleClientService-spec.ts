@@ -52,7 +52,7 @@ describe('Clients', () => {
 });
 
 describe('Feature', () => {
-  test('Should check for a application feature', async () => {
+  xtest('Should check for a application feature', async () => {
     const instance = FeatureToggleClientService.getInstance();
     const application = new Application({
       name: 'Application name',
@@ -65,7 +65,7 @@ describe('Feature', () => {
     expect(isApplicationFeatureEnabled).toBeDefined();
   });
 
-  test('Should check for a user feature', async () => {
+  xtest('Should check for a user feature', async () => {
     const instance = FeatureToggleClientService.getInstance();
     const user = new UserAccount({
       email: 'user@email.com',
