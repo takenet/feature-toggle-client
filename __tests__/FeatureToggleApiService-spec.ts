@@ -2,7 +2,6 @@
  * @jest-environment node
  */
 
-import { UserAccount } from '../src/types/UserAccount';
 import * as  fs from 'fs';
 import { FeatureToggleClientService } from '../src/FeatureToggleClientService';
 
@@ -16,7 +15,7 @@ if(fs.existsSync('secret.ts')) {
 authorizationToken = secret ? secret.apiAuthorizationToken : process.env.LAUNCH_DARKLY_API_AUTHORIZATION_TOKEN;
 
 describe('API', () => {
-  test('Should insert a user to a feature toggle', async () => {
+  xtest('Should insert a user to a feature toggle', async () => {
     const instance = FeatureToggleClientService.getInstance();
 
     instance.initializeApiService( { projectKey: 'default', environmentKey: 'dev', authorizationToken: authorizationToken } );
@@ -24,7 +23,7 @@ describe('API', () => {
     expect(success).toBeTruthy();
   });
 
-  test('Should insert users to a feature toggle', async () => {
+  xtest('Should insert users to a feature toggle', async () => {
     const instance = FeatureToggleClientService.getInstance();
 
     instance.initializeApiService( { projectKey: 'default', environmentKey: 'dev', authorizationToken: authorizationToken } );
