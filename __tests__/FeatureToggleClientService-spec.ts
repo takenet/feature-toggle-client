@@ -77,7 +77,7 @@ describe('Feature', () => {
     expect(isUserFeatureEnabled).toBeDefined();
   });
 
-  test('Should check for user or application instance feature', async () => {
+  xtest('Should check for user or application instance feature', async () => {
     const instance = FeatureToggleClientService.getInstance();
     const application = new Application({
       name: 'Application name',
