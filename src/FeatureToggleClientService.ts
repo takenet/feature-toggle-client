@@ -11,7 +11,7 @@ export class FeatureToggleClientService {
   private static instance: FeatureToggleClientService;
   private userInstance: LDClient;
   private applicationInstance: LDClient;
-  private apiServiceInstance: FeatureToggleApiService
+  private apiServiceInstance: FeatureToggleApiService;
   private requestTimeout: number = DEFAULT_REQUEST_TIMEOUT;
 
   private constructor() {
@@ -197,7 +197,7 @@ export class FeatureToggleClientService {
     user: UserAccount,
     featureKey: string
   ): Promise<boolean> {
-    return await this.apiServiceInstance.addUsersToFeatureToggle([user], featureKey);
+    return this.apiServiceInstance.addUsersToFeatureToggle([user], featureKey);
   }
 
   /**
@@ -209,6 +209,6 @@ export class FeatureToggleClientService {
     users: UserAccount[],
     featureKey: string
   ): Promise<boolean> {
-    return await this.apiServiceInstance.addUsersToFeatureToggle(users, featureKey);
+    return this.apiServiceInstance.addUsersToFeatureToggle(users, featureKey);
   }
 }

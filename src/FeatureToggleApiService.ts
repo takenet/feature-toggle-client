@@ -27,9 +27,9 @@ export class FeatureToggleApiService {
 
   private getApiRequestHeaders() {
     return {
+      Authorization: this.settings.authorizationToken,
       'Content-Type':
-        'application/json; domain-model=launchdarkly.semanticpatch',
-      Authorization: this.settings.authorizationToken
+        'application/json; domain-model=launchdarkly.semanticpatch'
     };
   }
 
@@ -37,8 +37,8 @@ export class FeatureToggleApiService {
     const instructions = [];
     instructions.push(new Instruction({
       kind: this.ADD_USER_TARGETS,
-      variationId: variationId,
-      values: users.map(user => user.email)
+      values: users.map(user => user.email),
+      variationId: variationId
     }));
 
     const addUserRequest = new AddUserRequest({
@@ -55,13 +55,13 @@ export class FeatureToggleApiService {
     const response = await axios.get(url, {
       headers: this.getApiRequestHeaders()
     });
-    if (response.status == this.STATUS_CODE_OK) {
+    if (response.status === this.STATUS_CODE_OK) {
       const variation = response.data.variations.find(variation => {
         return variation.value === true;
       });
       return variation._id;
     }
-    throw 'Error getting variation id';
+    throw new Error('Error getting variation id');
   }
 
   /**
@@ -84,9 +84,8 @@ export class FeatureToggleApiService {
         headers: this.getApiRequestHeaders()
       });
 
-      return response.status == this.STATUS_CODE_OK;
+      return response.status === this.STATUS_CODE_OK;
     } catch (error) {
-      console.error(error);
       return false;
     }
   }
