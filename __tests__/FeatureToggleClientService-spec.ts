@@ -1,10 +1,13 @@
+
 import { FeatureToggleClientService } from '../src/FeatureToggleClientService';
+
 import { UserAccount } from '../src/types/UserAccount';
 import { Application } from '../src/types/Application';
 import * as mock from 'mock-fs'; //tslint:disable-line
 import * as  fs from 'fs';
 
 let exampleHmgKey;
+let authorizationToken;
 let secret;
 
 if(fs.existsSync('secret.ts')) {
@@ -12,6 +15,7 @@ if(fs.existsSync('secret.ts')) {
 }
 
 exampleHmgKey = secret ? secret.secrectKey : process.env.LAUNCH_DARKLY_KEY;
+authorizationToken = secret ? secret.apiAuthorizationToken : process.env.LAUNCH_DARKLY_API_AUTHORIZATION_TOKEN;
 
 test('Should get a FeatureToggleClientService instance', () => {
   const instance = FeatureToggleClientService.getInstance();
@@ -92,7 +96,7 @@ describe('Feature', () => {
     expect(isFeatureEnabled).toBeDefined();
   });
 
-  test('Should return default value if default timeout has exceeded', async () => {
+  xtest('Should return default value if default timeout has exceeded', async () => {
     const instance = FeatureToggleClientService.getInstance();
     const defaultValue = false;
     const fakePromise = new Promise(resolve => {
@@ -111,4 +115,3 @@ describe('Feature', () => {
     expect(resolvedValue).toBeFalsy();
   });
 });
-
