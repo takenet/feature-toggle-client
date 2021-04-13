@@ -6,4 +6,4 @@ export class Instruction {
   constructor(init?: Partial<Instruction>) {
     Object.assign(this, init);
   }
-};
+}
