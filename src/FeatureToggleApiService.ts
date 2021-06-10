@@ -2,8 +2,7 @@ import { AddUserRequest } from './types/AddUserRequest';
 import { UserAccount } from './types/UserAccount';
 import { IFeatureToggleServiceSettings } from './types/IFeatureToggleServiceSettings';
 import { Instruction } from './types/Instruction';
-
-const axios = require('axios').default;
+import axios from 'axios';
 
 export class FeatureToggleApiService {
   private readonly API_URL = 'https://app.launchdarkly.com/api/v2/flags';
@@ -38,13 +37,13 @@ export class FeatureToggleApiService {
     instructions.push(new Instruction({
       kind: this.ADD_USER_TARGETS,
       values: users.map(user => user.email),
-      variationId: variationId
+      variationId
     }));
 
     const addUserRequest = new AddUserRequest({
       comment: this.DEFAULT_COMMENT,
       environmentKey: this.settings.environmentKey,
-      instructions: instructions
+      instructions
     });
 
     return addUserRequest;
@@ -56,8 +55,8 @@ export class FeatureToggleApiService {
       headers: this.getApiRequestHeaders()
     });
     if (response.status === this.STATUS_CODE_OK) {
-      const variation = response.data.variations.find(variation => {
-        return variation.value === true;
+      const variation = response.data.variations.find(({ value }) => {
+        return value === true;
       });
       return variation._id;
     }

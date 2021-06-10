@@ -24,9 +24,12 @@ const applicationByCluster = (p: any) =>
 
 export class FeatureToggleInstanceFactory {
   private client: LDClient;
+  private defaultOptions: Partial<LDOptions> = {
+    bootstrap: 'localStorage'
+  };
 
   constructor(payload: UserAccount | Application, ldclientSdkKey: string, options?: LDOptions) {
-    this.client = initialize(ldclientSdkKey, this.payloadByType(payload), options);
+    this.client = initialize(ldclientSdkKey, this.payloadByType(payload), { ...options, ...this.defaultOptions });
   }
 
   /**
