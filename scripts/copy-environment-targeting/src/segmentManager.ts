@@ -31,7 +31,7 @@ export class SegmentManager {
             .filter(ss => targetSegments.find(ts => ts.key === ss.key) === undefined);
 
         for (let i = 0; i < missingSegments.length; i++) {
-            await this.launchDarklyClient.CreateSegmentAsync(
+            await this.launchDarklyClient.createSegmentAsync(
                 this.project,
                 this.targetEnvironment,
                 missingSegments[i]

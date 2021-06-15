@@ -1,5 +1,10 @@
 import axios, { AxiosResponse, Method } from 'axios';
-import { FeatureFlagsApi, FeatureFlagsApiApiKeys, FeatureFlagCopyBody, FeatureFlagCopyObject, FeatureFlags } from "launchdarkly-api-typescript";
+import {
+    FeatureFlagsApi,
+    FeatureFlagsApiApiKeys,
+    FeatureFlagCopyBody,
+    FeatureFlagCopyObject,
+    FeatureFlag } from "launchdarkly-api-typescript";
 import { Segment } from "./DTOs/segment";
 import settings from './settings.json';
 
@@ -14,17 +19,21 @@ export class LaunchDarklyClient {
         this.apiInstance.setApiKey(FeatureFlagsApiApiKeys.Token, this.token);
     }
 
-    async getFeatureToggles(projectId: string): Promise<FeatureFlags> {
+    async getFeatureToggles(projectId: string): Promise<Array<FeatureFlag>> {
         const result = await this.apiInstance.getFeatureFlags(projectId);
-        return result.body;
+        return result.body.items || [];
     }
 
     async copyFeatureToggleAsync(projectKey: string, featureToggleKey: string, sourceEnvironmentKey: string, targetEnvironmentKey: string): Promise<void> {
-        let featureFlagCopyBody = new FeatureFlagCopyBody();
         let source = new FeatureFlagCopyObject();
         source.key = sourceEnvironmentKey;
+
         let target = new FeatureFlagCopyObject();
         target.key = targetEnvironmentKey;
+
+        let featureFlagCopyBody = new FeatureFlagCopyBody();
+        featureFlagCopyBody.source = source;
+        featureFlagCopyBody.target = target;
 
         await this.apiInstance.copyFeatureFlag(
             projectKey,
@@ -48,7 +57,7 @@ export class LaunchDarklyClient {
         });
     }
 
-    async CreateSegmentAsync(projectKey: string, environmentKey: string, segment: Segment): Promise<void> {
+    async createSegmentAsync(projectKey: string, environmentKey: string, segment: Segment): Promise<void> {
         await this.sendAsHttpRequestAsync(
             "POST",
             `/segments/${projectKey}/${environmentKey}`,
