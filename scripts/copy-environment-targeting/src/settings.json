@@ -1,0 +1,6 @@
+{
+    "LAUNCH_DARKLY_TOKEN": "",
+    "PROJECT": "default",
+    "SOURCE_ENVIRONMENT": "production",
+    "TARGET_ENVIRONMENT": "dev"
+}
