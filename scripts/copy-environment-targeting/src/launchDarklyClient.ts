@@ -15,6 +15,8 @@ export class LaunchDarklyClient {
 
     constructor () {
         this.token = settings.LAUNCH_DARKLY_TOKEN;
+        this.checkRequiredSettings();
+
         this.apiInstance = new FeatureFlagsApi();
         this.apiInstance.setApiKey(FeatureFlagsApiApiKeys.Token, this.token);
     }
@@ -72,5 +74,11 @@ export class LaunchDarklyClient {
             data,
             headers: { Authorization: this.token }
         })
+    }
+
+    private checkRequiredSettings() {
+        if (this.token === "") {
+            throw new Error("One of the following settings is empty: LAUNCH_DARKLY_TOKEN");
+        }
     }
 }

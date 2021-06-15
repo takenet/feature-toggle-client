@@ -15,6 +15,7 @@ export class FeatureToggleManager {
         this.project = settings.PROJECT;
         this.sourceEnvironment = settings.SOURCE_ENVIRONMENT;
         this.targetEnvironment = settings.TARGET_ENVIRONMENT;
+        this.checkRequiredSettings();
     }
 
     async copyFeatureTogglesAsync(): Promise<void> {
@@ -36,5 +37,11 @@ export class FeatureToggleManager {
         return await this.launchDarklyClient.getFeatureToggles(
             this.project
         )
+    }
+
+    private checkRequiredSettings() {
+        if (this.project === "" || this.sourceEnvironment === "" || this.targetEnvironment === "") {
+            throw new Error("One of the following settings is empty: PROJECT, SOURCE_ENVIRONMENT, TARGET_ENVIRONMENT");
+        }
     }
 }

@@ -14,6 +14,7 @@ export class SegmentManager {
         this.project = settings.PROJECT;
         this.sourceEnvironment = settings.SOURCE_ENVIRONMENT;
         this.targetEnvironment = settings.TARGET_ENVIRONMENT;
+        this.checkRequiredSettings();
     }
 
     async copySegmentsAsync(): Promise<void> {
@@ -40,5 +41,11 @@ export class SegmentManager {
             // Avoid rate limit reaching
             await new Promise(resolve => setTimeout(resolve, 200));
         };
+    }
+
+    private checkRequiredSettings() {
+        if (this.project === "" || this.sourceEnvironment === "" || this.targetEnvironment === "") {
+            throw new Error("One of the following settings is empty: PROJECT, SOURCE_ENVIRONMENT, TARGET_ENVIRONMENT");
+        }
     }
 }
