@@ -1,8 +1,8 @@
 {
-    "LAUNCH_DARKLY_TOKEN": "",
-    "PROJECT": "",
-    "SOURCE_ENVIRONMENT": "",
-    "TARGET_ENVIRONMENT": "",
-    "COPY_SEGMENTS": true,
-    "ALLOW_SELF_SIGNED_CERTIFICATE": true
+    "LAUNCH_DARKLY_TOKEN": "api-aeb83a97-408b-4e83-b2d7-a4ce0d82107f",
+    "PROJECT": "default",
+    "SOURCE_ENVIRONMENT": "production",
+    "TARGET_ENVIRONMENT": "dev",
+    "ALLOW_SELF_SIGNED_CERTIFICATE": true,
+    "COPY_SEGMENTS": true
 }
