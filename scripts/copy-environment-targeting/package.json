@@ -1,0 +1,21 @@
+{
+  "name": "copy-environment-targeting",
+  "version": "0.0.1",
+  "description": "Copies all targeting from one environment to another",
+  "main": "index.ts",
+  "scripts": {
+    "start": "ts-node ./src/index.ts",
+    "build": "tsc"
+  },
+  "author": "Arthur Soares",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "launchdarkly-api-typescript": "5.1.0"
+  },
+  "devDependencies": {
+    "ts-node": "^10.0.0",
+    "typescript": "4.3.2",
+    "@types/node": "^15.12.2"
+  }
+}

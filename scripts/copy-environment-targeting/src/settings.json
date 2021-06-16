@@ -1,0 +1,8 @@
+{
+    "LAUNCH_DARKLY_TOKEN": "",
+    "PROJECT": "",
+    "SOURCE_ENVIRONMENT": "",
+    "TARGET_ENVIRONMENT": "",
+    "ALLOW_SELF_SIGNED_CERTIFICATE": true,
+    "COPY_SEGMENTS": true
+}
