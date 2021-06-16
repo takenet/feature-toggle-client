@@ -36,7 +36,7 @@ export class SegmentManager {
                 this.logger.logAsync("info", `Segment ${missingSegments[i].key} copied to environment ${this.targetEnvironment}`);
 
                 // Avoid rate limit reaching
-                await new Promise(resolve => setTimeout(resolve, 100));
+                await new Promise(resolve => setTimeout(resolve, 500));
             } catch (err) {
                 this.logger.logAsync("error", `Could not copy segment ${missingSegments[i].key} to environment ${this.targetEnvironment}. ${err.message}`);
             }

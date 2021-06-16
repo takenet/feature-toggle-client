@@ -35,7 +35,7 @@ export class FeatureToggleManager {
                 this.logger.logAsync("info", `Feature toggle ${featureToggles[i].key} copied to environment ${this.targetEnvironment}`);
 
                 // Avoid rate limit reaching
-                await new Promise(resolve => setTimeout(resolve, 100));
+                await new Promise(resolve => setTimeout(resolve, 12100));
             } catch (err) {
                 this.logger.logAsync("error", `Could not copy feature toggle ${featureToggles[i].key} to environment ${this.targetEnvironment}. ${err.message}`);
             }
