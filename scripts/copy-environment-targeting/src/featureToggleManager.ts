@@ -32,12 +32,12 @@ export class FeatureToggleManager {
                     this.targetEnvironment
                 )
 
-                this.logger.logInfoAsync(`Feature toggle ${featureToggles[i].key} copied to environment ${this.targetEnvironment}`);
+                this.logger.logAsync("info", `Feature toggle ${featureToggles[i].key} copied to environment ${this.targetEnvironment}`);
 
                 // Avoid rate limit reaching
                 await new Promise(resolve => setTimeout(resolve, 100));
             } catch (err) {
-                this.logger.logErrorAsync(`Could not copy feature toggle ${featureToggles[i].key} to environment ${this.targetEnvironment}. ${err.message}`);
+                this.logger.logAsync("error", `Could not copy feature toggle ${featureToggles[i].key} to environment ${this.targetEnvironment}. ${err.message}`);
             }
         }
     }
@@ -47,12 +47,12 @@ export class FeatureToggleManager {
             const featureToggles = await this.launchDarklyClient.getFeatureToggles(
                 this.project
             )
-            this.logger.logInfoAsync(`${featureToggles.length} feature toggles found on environment ${this.sourceEnvironment}`);
+            this.logger.logAsync("info", `${featureToggles.length} feature toggles found on environment ${this.sourceEnvironment}`);
 
             return featureToggles;
 
         } catch(err) {
-            this.logger.logErrorAsync(`Could not get feature toggles on environment ${this.sourceEnvironment}. ${err.message}`);
+            this.logger.logAsync("error", `Could not get feature toggles on environment ${this.sourceEnvironment}. ${err.message}`);
 
             throw err;
         }

@@ -33,12 +33,12 @@ export class SegmentManager {
                     missingSegments[i]
                 )
 
-                this.logger.logInfoAsync(`Segment ${missingSegments[i].key} copied to environment ${this.targetEnvironment}`);
+                this.logger.logAsync("info", `Segment ${missingSegments[i].key} copied to environment ${this.targetEnvironment}`);
 
                 // Avoid rate limit reaching
                 await new Promise(resolve => setTimeout(resolve, 100));
             } catch (err) {
-                this.logger.logErrorAsync(`Could not copy segment ${missingSegments[i].key} to environment ${this.targetEnvironment}. ${err.message}`);
+                this.logger.logAsync("error", `Could not copy segment ${missingSegments[i].key} to environment ${this.targetEnvironment}. ${err.message}`);
             }
         };
     }
@@ -49,12 +49,12 @@ export class SegmentManager {
                 this.project,
                 environment
             )
-            this.logger.logInfoAsync(`${segments.length} segments found on environment ${environment}`);
+            this.logger.logAsync("info", `${segments.length} segments found on environment ${environment}`);
 
             return segments;
 
         } catch(err) {
-            this.logger.logErrorAsync(`Could not get segments on environment ${environment}. ${err.message}`);
+            this.logger.logAsync("error", `Could not get segments on environment ${environment}. ${err.message}`);
 
             throw err;
         }
