@@ -4,18 +4,14 @@ import { Logger } from './logger';
 import settings from './settings.json';
 
 export class FeatureToggleManager {
-    private launchDarklyClient: LaunchDarklyClient;
-    private logger: Logger;
     private project: string;
     private sourceEnvironment: string;
     private targetEnvironment: string;
 
     constructor(
-        launchDarklyClient: LaunchDarklyClient,
-        logger: Logger
+        private launchDarklyClient: LaunchDarklyClient,
+        private logger: Logger
     ) {
-        this.launchDarklyClient = launchDarklyClient;
-        this.logger = logger;
         this.project = settings.PROJECT;
         this.sourceEnvironment = settings.SOURCE_ENVIRONMENT;
         this.targetEnvironment = settings.TARGET_ENVIRONMENT;
