@@ -7,9 +7,9 @@ The copying includes targeting, individual users targeting, rules maching target
 ## Configure Settings
 On `src` directory a `settings.json` is available. Fill it with your informations.
 
-`COPY_SEGMENTS` will copy the project segments from a environment to another. If set as `false`, feature toggles with segment rules won't be copied.
+`COPY_SEGMENTS` will copy the project segments from one environment to another. If set as `false`, feature toggles with segment rules won't be copied.
 
-`ALLOW_SELF_SIGNED_CERTIFICATE` allow node communicae with Launch Darkly API using a Self Signed Certificate. Set as `true` if you face some problem with Launch Darkly certificates.
+`ALLOW_SELF_SIGNED_CERTIFICATE` allow node communicate with Launch Darkly API using a Self Signed Certificate. Set as `true` if you face some problem with Launch Darkly certificates.
 
 ```json
 {
