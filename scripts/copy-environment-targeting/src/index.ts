@@ -25,4 +25,6 @@ const Run = async () => {
     await featureToggleManager.copyFeatureTogglesAsync();
 }
 
+console.info("Execution has started. Detailed execution logs will be avaliable on \"src/output/logs.txt\"");
 Run();
+console.info("Execution has endded. Detailed execution logs are avaliable on \"src/output/logs.txt\"");
