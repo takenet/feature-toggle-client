@@ -56,6 +56,7 @@ export class FeatureToggleInstanceFactory {
       } else {
         return {
           custom: {
+            creationDate: payload.creationDate,
             group: 'users',
           },
           email: payload.email,
