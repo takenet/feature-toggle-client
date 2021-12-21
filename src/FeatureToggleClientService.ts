@@ -211,4 +211,16 @@ export class FeatureToggleClientService {
   ): Promise<boolean> {
     return this.apiServiceInstance.addUsersToFeatureToggle(users, featureKey);
   }
+
+  /**
+   * Remove users from feature toggle
+   * @param users user account set
+   * @param featureKey feature key configured on server
+   */
+  public async removeUsersFromFeatureToggle(
+    users: UserAccount[],
+    featureKey: string
+  ): Promise<boolean> {
+    return this.apiServiceInstance.removeUsersFromFeatureToggle(users, featureKey);
+  }
 }

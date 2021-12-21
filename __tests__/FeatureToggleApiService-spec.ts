@@ -39,4 +39,22 @@ describe('API', () => {
        'action-with-condition');
     expect(success).toBeTruthy();
   });
+
+  xtest('Should remove a user from a feature toggle', async () => {
+    const instance = FeatureToggleClientService.getInstance();
+
+    instance.initializeApiService( { projectKey: 'default', environmentKey: 'dev', authorizationToken: authorizationToken } );
+    const success = await instance.addUserToFeatureToggle( { email: 'user@email.com' } , 'action-with-condition');
+    expect(success).toBeTruthy();
+  });
+
+  xtest('Should remove users from a feature toggle', async () => {
+    const instance = FeatureToggleClientService.getInstance();
+
+    instance.initializeApiService( { projectKey: 'default', environmentKey: 'dev', authorizationToken: authorizationToken } );
+    const success = await instance.addUsersToFeatureToggle(
+      [{ email: 'user1@email.com' } , { email: 'user2@email.com' }] ,
+       'action-with-condition');
+    expect(success).toBeTruthy();
+  });
 });

@@ -4,10 +4,13 @@ import { IFeatureToggleServiceSettings } from './types/IFeatureToggleServiceSett
 import { Instruction } from './types/Instruction';
 import axios from 'axios';
 
+const enum UserTargets { 
+  AddUserTargets = 'addUserTargets',
+  RemoveUserTargets = 'removeUserTargets'
+}
 export class FeatureToggleApiService {
   private readonly API_URL = 'https://app.launchdarkly.com/api/v2/flags';
   private readonly DEFAULT_COMMENT = 'modified by feature-toggle-client';
-  private readonly ADD_USER_TARGETS = 'addUserTargets';
   private readonly STATUS_CODE_OK = 200;
   private settings: IFeatureToggleServiceSettings;
 
@@ -32,10 +35,10 @@ export class FeatureToggleApiService {
     };
   }
 
-  private getAddUserTargetsDataFormat(users: UserAccount[], variationId: string) {
+  private getUserTargetsDataFormat(users: UserAccount[], variationId: string, target: UserTargets) {
     const instructions = [];
     instructions.push(new Instruction({
-      kind: this.ADD_USER_TARGETS,
+      kind: target,
       values: users.map(user => user.email),
       variationId
     }));
@@ -75,7 +78,33 @@ export class FeatureToggleApiService {
     try {
       const variationId = await this.getVariationId(featureKey);
 
-      const data = this.getAddUserTargetsDataFormat(users, variationId);
+      const data = this.getUserTargetsDataFormat(users, variationId, UserTargets.AddUserTargets);
+
+      const url = this.getApiRequestUrl(featureKey, true);
+
+      const response = await axios.patch(url, data, {
+        headers: this.getApiRequestHeaders()
+      });
+
+      return response.status === this.STATUS_CODE_OK;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  /**
+   * Remove an user from feature toggle
+   * @param user user account
+   * @param featureKey feature key configured on server
+   */
+  public async removeUsersFromFeatureToggle(
+    users: UserAccount[],
+    featureKey: string
+  ): Promise<boolean> {
+    try {
+      const variationId = await this.getVariationId(featureKey);
+      
+      const data = this.getUserTargetsDataFormat(users, variationId, UserTargets.RemoveUserTargets);
 
       const url = this.getApiRequestUrl(featureKey, true);
 
