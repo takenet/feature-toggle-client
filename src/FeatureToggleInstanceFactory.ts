@@ -3,11 +3,12 @@ import { UserAccount } from './types/UserAccount';
 import { Application } from './types/Application';
 import * as uuid from 'uuid';
 
-const applicationByCluster = (p: any) =>
+const getApplicationData = (p: any) : LDUser =>
   p.hasCluster
     ? {
         custom: {
           group: 'bot',
+          tenantId: p.tenantId
         },
         email: `${p.shortName}@msging.net`,
         key: p.shortName,
@@ -22,6 +23,23 @@ const applicationByCluster = (p: any) =>
         name: 'free',
       };
 
+const getUserData = (p: any): LDUser =>
+  p.anonymous
+    ? {
+      anonymous: true,
+      key: uuid.v4(),
+      ...p,
+    }
+    : {
+      custom: {
+        creationDate: p.creationDate,
+        group: 'users',
+      },
+      email: p.email,
+      key: p.email,
+      name: p.fullName,
+    };
+    
 export class FeatureToggleInstanceFactory {
   private client: LDClient;
   private defaultOptions: Partial<LDOptions> = {
@@ -29,7 +47,11 @@ export class FeatureToggleInstanceFactory {
   };
 
   constructor(payload: UserAccount | Application, ldclientSdkKey: string, options?: LDOptions) {
-    this.client = initialize(ldclientSdkKey, this.payloadByType(payload), { ...options, ...this.defaultOptions });
+    this.client = initialize(
+      ldclientSdkKey,
+      this.initLaunchDarklyUser(payload),
+      { ...options, ...this.defaultOptions }
+    );
   }
 
   /**
@@ -43,29 +65,13 @@ export class FeatureToggleInstanceFactory {
    * Return instance user by payload type
    * @param payload - user or application
    */
-  private payloadByType(payload: any): LDUser {
+  private initLaunchDarklyUser(payload: any): LDUser {
     const isUser = () => payload.email;
-
+    
     if (isUser()) {
-      if (payload.anonymous) {
-        return {
-          anonymous: true,
-          key: uuid.v4(),
-          ...payload,
-        };
-      } else {
-        return {
-          custom: {
-            creationDate: payload.creationDate,
-            group: 'users',
-          },
-          email: payload.email,
-          key: payload.email,
-          name: payload.fullName,
-        };
-      }
+      return getUserData(payload);
     }
 
-    return applicationByCluster(payload);
+    return getApplicationData(payload);
   }
 }
