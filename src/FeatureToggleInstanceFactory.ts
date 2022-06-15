@@ -7,8 +7,9 @@ const getApplicationData = (p: any) : LDUser =>
   p.hasCluster
     ? {
         custom: {
+          cluster: p.cluster,
           group: 'bot',
-          tenantId: p.tenantId
+          tenantId: p.tenantId,
         },
         email: `${p.shortName}@msging.net`,
         key: p.shortName,
