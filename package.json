@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "launchdarkly-js-client-sdk": "^2.11.0",
+    "launchdarkly-js-client-sdk": "^2.22.1",
     "uuid": "^3.3.2"
   },
   "devDependencies": {

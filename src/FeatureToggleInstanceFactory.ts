@@ -3,26 +3,26 @@ import { UserAccount } from './types/UserAccount';
 import { Application } from './types/Application';
 import * as uuid from 'uuid';
 
-const getApplicationData = (p: any) : LDUser =>
+const getApplicationData = (p: any): LDUser =>
   p.hasCluster
     ? {
-        custom: {
-          cluster: p.cluster,
-          group: 'bot',
-          tenantId: p.tenantId,
-        },
-        email: `${p.shortName}@msging.net`,
-        key: p.shortName,
-        name: p.name,
-      }
+      custom: {
+        cluster: p.cluster,
+        group: 'bot',
+        tenantId: p.tenantId,
+      },
+      email: `${p.shortName}@msging.net`,
+      key: p.shortName,
+      name: p.name,
+    }
     : {
-        custom: {
-          group: 'bot',
-        },
-        email: 'free@free.com',
-        key: 'free',
-        name: 'free',
-      };
+      custom: {
+        group: 'bot',
+      },
+      email: 'free@free.com',
+      key: 'free',
+      name: 'free',
+    };
 
 const getUserData = (p: any): LDUser =>
   p.anonymous
@@ -40,7 +40,7 @@ const getUserData = (p: any): LDUser =>
       key: p.email,
       name: p.fullName,
     };
-    
+
 export class FeatureToggleInstanceFactory {
   private client: LDClient;
   private defaultOptions: Partial<LDOptions> = {
@@ -68,7 +68,7 @@ export class FeatureToggleInstanceFactory {
    */
   private initLaunchDarklyUser(payload: any): LDUser {
     const isUser = () => payload.email;
-    
+
     if (isUser()) {
       return getUserData(payload);
     }
