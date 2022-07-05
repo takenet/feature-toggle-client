@@ -18,7 +18,6 @@ jest.mock('launchdarkly-js-client-sdk', () => {
 });
 
 describe('Feature toggle client service tests', () => {
-
   it('Should get client singleton instance', () => {
     const firstInstance = FeatureToggleClientService.getInstance();
     const secondInstance = FeatureToggleClientService.getInstance();
