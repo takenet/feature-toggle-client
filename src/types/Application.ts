@@ -11,6 +11,7 @@ export class Application {
   public applicationDomainActivations: IApplicationDomainActivation[];
   public isTemplate: boolean;
   public status: string;
+  public hasCluster: boolean;
   public applicationJson: IApplicationJson;
 
   constructor(init?: Partial<Application>) {
