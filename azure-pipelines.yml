@@ -25,7 +25,7 @@ extends:
     packagename: feature-toggle-client
     type: javascript
     to: semantic-release
-    nodeVersion: 12.x
+    nodeVersion: 14.17.x
     npmCmds:
     - npm install
     - npm run test
