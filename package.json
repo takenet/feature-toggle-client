@@ -5,12 +5,13 @@
   "license": "MIT",
   "repository": "",
   "author": {
-    "name": "Samuel Martins",
-    "email": "samuels@take.net",
-    "url": "https://blip.ai"
+    "name": "Blip Platform team",
+    "url": "https://blip.ai/"
   },
   "keywords": [
-    ""
+    "launchdarkly",
+    "feature toggle",
+    "blip"
   ],
   "files": [
     "dist"
