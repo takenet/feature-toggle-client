@@ -13,18 +13,19 @@ variables:
 - group: npmjs-sample-variables
 
 resources:
-  repositories:   
+  repositories:
   - repository: templates
     type: git
     name: Operações/template-take-blip
     ref: refs/tags/v1.2.3
 
 extends:
-  template: template-pipeline.yml@templates    
-  parameters:    
+  template: template-pipeline.yml@templates
+  parameters:
     packagename: feature-toggle-client
     type: javascript
     to: semantic-release
+    nodeVersion: 14.17.x
     npmCmds:
     - npm install
     - npm run test
